@@ -16,6 +16,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install dependencies (if needed)
+        run: |
+          # For example, if you're using npm or yarn to build the dist directory
+          npm install  # or yarn install
+
+      - name: Build dist directory (if needed)
+        run: |
+          npm run build  # or your custom build command to generate dist
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
