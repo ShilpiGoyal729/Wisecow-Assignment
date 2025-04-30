@@ -51,7 +51,7 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker buildx create --use
-          docker buildx build --file Dockerfile --platform linux/amd64 --tag ${{ secrets.DOCKER_USERNAME }}/nginx-app:${{ github.sha }} --push .
+          docker buildx build --file Dockerfile --platform linux/amd64 --tag shilpigoyal729/nginx-app:${{ github.sha }} --push .
         env:
           DOCKER_CLI_EXPERIMENTAL: enabled
 
