@@ -1,13 +1,13 @@
 {
   "name": "wisecow_f",
   "version": "1.0.0",
-  "description": "",
+  "description": "Static frontend for Wisecow",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo 'No build script defined'"
+    "build": "mkdir -p dist && echo '<h1>Welcome to Wisecow</h1>' > dist/index.html"
   },
   "keywords": [],
-  "author": "",
+  "author": "Shilpi Goyal",
   "license": "ISC"
 }
