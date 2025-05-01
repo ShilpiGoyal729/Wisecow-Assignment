@@ -81,6 +81,7 @@ jobs:
       - name: Start Minikube
         run: |
           minikube start --driver=docker
+          minikube status  # Ensure Minikube is up and running
 
       - name: Set up kubectl to use Minikube context
         run: |
