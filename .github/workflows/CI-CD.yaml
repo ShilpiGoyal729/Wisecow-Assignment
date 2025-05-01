@@ -72,17 +72,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v1
-        with:
-          version: 'v1.21.0'
-
-      - name: Configure kubectl
+      - name: Set up kubectl to use Minikube context
         run: |
-          kubectl config set-cluster my-cluster --server=${{ secrets.K8S_API_SERVER }}
-          kubectl config set-credentials my-user --token=${{ secrets.K8S_TOKEN }}
-          kubectl config set-context my-context --cluster=my-cluster --user=my-user
-          kubectl config use-context my-context
+          mkdir -p ~/.kube
+          cp $(minikube -p minikube kubectl -- config view --raw) ~/.kube/config
+          kubectl config use-context minikube
 
       - name: Deploy to Kubernetes
         run: |
