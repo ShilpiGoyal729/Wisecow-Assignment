@@ -76,17 +76,18 @@ jobs:
           curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
           sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
-      - name: Start Minikube
+      - name: Start Minikube and wait for it to be ready
         run: |
           minikube start --driver=docker
+          echo "Waiting for Minikube to be ready..."
+          until minikube status | grep -q "host: Running"; do sleep 5; done
           minikube status
 
-      - name: Set up kubectl to use Minikube context
+      - name: Configure kubectl
         run: |
           mkdir -p $HOME/.kube
-          echo "Configuring kubectl"
-          minikube -p minikube kubectl -- config view --raw > $HOME/.kube/config
-          kubectl config use-context minikube
+          minikube update-context
+          minikube kubectl -- get pods
 
       - name: Deploy to Kubernetes
         run: |
