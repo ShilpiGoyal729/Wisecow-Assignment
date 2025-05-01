@@ -87,5 +87,5 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           export GITHUB_SHA=${{ github.sha }}
-          cat deployment.yml | envsubst | kubectl apply -f -
+          cat deployment.yaml | envsubst | kubectl apply -f -
           kubectl rollout status deployment/nginx-deployment
