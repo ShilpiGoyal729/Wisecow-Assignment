@@ -74,28 +74,19 @@ jobs:
       - name: Install Minikube
         run: |
           curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-          sudo mv minikube-linux-amd64 /usr/local/bin/minikube
-          sudo chmod +x /usr/local/bin/minikube
+          sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
       - name: Start Minikube
         run: |
           minikube start --driver=docker
-          minikube status  # Ensure Minikube is up and running
-          sleep 30  # Give Minikube time to fully start
+          minikube status
 
       - name: Set up kubectl to use Minikube context
         run: |
-          mkdir -p $HOME/.kube  # Ensure the .kube directory is created
+          mkdir -p $HOME/.kube
           echo "Configuring kubectl"
-          minikube -p minikube kubectl -- config view --raw > $HOME/.kube/config  # Directly write the config to the file
-          kubectl config use-context minikube  # Set the context
-
-      - name: Check if deployment.yaml exists
-        run: |
-          if [ ! -f "deployment.yaml" ]; then
-            echo "ERROR: deployment.yaml not found!"
-            exit 1
-          fi
+          minikube -p minikube kubectl -- config view --raw > $HOME/.kube/config
+          kubectl config use-context minikube
 
       - name: Deploy to Kubernetes
         run: |
