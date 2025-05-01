@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: shilpigoyal729/wisecow:${GITHUB_SHA}
+          image: ${DOCKER_IMAGE}
           ports:
             - containerPort: 4499
           resources:
