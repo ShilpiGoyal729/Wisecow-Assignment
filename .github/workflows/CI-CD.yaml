@@ -72,11 +72,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install Minikube
+        run: |
+          curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+          sudo mv minikube-linux-amd64 /usr/local/bin/minikube
+          sudo chmod +x /usr/local/bin/minikube
+
+      - name: Start Minikube
+        run: |
+          minikube start --driver=docker
+
       - name: Set up kubectl to use Minikube context
         run: |
-          mkdir -p ~/.kube
-          cp $(minikube -p minikube kubectl -- config view --raw) ~/.kube/config
+          mkdir -p $HOME/.kube  # Ensure the .kube directory is created in the correct user's home directory
+          cp $(minikube -p minikube kubectl -- config view --raw) $HOME/.kube/config
           kubectl config use-context minikube
+
+      - name: Check if deployment.yaml exists
+        run: |
+          if [ ! -f "deployment.yaml" ]; then
+            echo "ERROR: deployment.yaml not found!"
+            exit 1
+          fi
 
       - name: Deploy to Kubernetes
         run: |
