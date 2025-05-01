@@ -18,7 +18,6 @@ jobs:
 
       - name: Install dependencies (if needed)
         run: |
-          # For example, if you're using npm or yarn to build the dist directory
           npm install  # or yarn install
 
       - name: Build dist directory (if needed)
@@ -82,6 +81,7 @@ jobs:
         run: |
           minikube start --driver=docker
           minikube status  # Ensure Minikube is up and running
+          sleep 30  # Adding a sleep to ensure Minikube has time to fully initialize
 
       - name: Set up kubectl to use Minikube context
         run: |
