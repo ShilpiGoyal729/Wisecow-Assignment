@@ -81,7 +81,7 @@ jobs:
         run: |
           minikube start --driver=docker
           minikube status  # Ensure Minikube is up and running
-          sleep 30  # Adding a sleep to ensure Minikube has time to fully initialize
+          sleep 30  # Give Minikube time to fully start
 
       - name: Set up kubectl to use Minikube context
         run: |
