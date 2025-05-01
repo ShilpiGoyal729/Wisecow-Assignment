@@ -85,8 +85,8 @@ jobs:
       - name: Set up kubectl to use Minikube context
         run: |
           mkdir -p $HOME/.kube  # Ensure the .kube directory is created
-          rm -f $HOME/.kube/config  # Remove any existing config file to avoid conflict
-          cp $(minikube -p minikube kubectl -- config view --raw) $HOME/.kube/config  # Copy the Minikube config
+          echo "Configuring kubectl"
+          minikube -p minikube kubectl -- config view --raw > $HOME/.kube/config  # Directly write the config to the file
           kubectl config use-context minikube  # Set the context
 
       - name: Check if deployment.yaml exists
